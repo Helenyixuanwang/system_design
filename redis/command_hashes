@@ -47,3 +47,17 @@ hgetall user:1
 ft.create idx:user ON hash PREFIX 1 "user:" SCHEMA gender TAG country TAG SORTABLE last_login NUMERIC SORTABLE location GEO
 
 ft.info idx:user
+
+# search
+# search key word
+ft.search idx:movie "heat" return 2 movie_name release_year
+
+
+ft.search idx:movie "heat" return 3 movie_name release_year plot
+#with a field name
+ft.search idx:movie "@movie_name:heat" return 3 movie_name release_year plot
+#with a field name, without "california"
+ft.search idx:movie "@movie_name:(heat -california)" return 3 movie_name release_year plot
+
+#with a field name, without "women"
+ft.search idx:movie "@movie_name:(heat -women)" return 3 movie_name release_year plot
