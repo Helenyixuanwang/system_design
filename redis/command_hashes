@@ -61,3 +61,8 @@ ft.search idx:movie "@movie_name:(heat -california)" return 3 movie_name release
 
 #with a field name, without "women"
 ft.search idx:movie "@movie_name:(heat -women)" return 3 movie_name release_year plot
+
+#CODE: Sort data with SORTBY
+# to make DESC or ASC work, the field has to have "SORTABLE" in SCHEMA field design
+ft.search idx:movie "@category:{Action}" SORTBY release_year return 2 movie_name release_year
+ft.search idx:movie "@category:{Action}" SORTBY release_year ASC return 2 movie_name release_year
