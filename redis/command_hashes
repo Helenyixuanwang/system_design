@@ -66,3 +66,48 @@ ft.search idx:movie "@movie_name:(heat -women)" return 3 movie_name release_year
 # to make DESC or ASC work, the field has to have "SORTABLE" in SCHEMA field design
 ft.search idx:movie "@category:{Action}" SORTBY release_year return 2 movie_name release_year
 ft.search idx:movie "@category:{Action}" SORTBY release_year ASC return 2 movie_name release_year
+
+#Septem 16,2023
+#CODE: Grouping data
+#return all movies count
+ft.search idx:movie "*" limit 0 0
+# all users count
+ft.search idx:user "*" limit 0 0
+# all actors count
+ft.search idx:actor "*" limit 0 0
+# display record per field release_year
+ft.aggregate idx:movie "*" groupby 1 @release_year
+
+ft.aggregate idx:movie "*" groupby 1 @category
+
+ft.aggregate idx:movie "*" groupby 1 @release_year @category
+
+ft.aggregate idx:movie "*" groupby 2 @release_year @category
+
+ft.aggregate idx:movie "*" groupby 2 @category @release_year
+
+ft.aggregate idx:movie "*" groupby 2 @release_year @category
+
+ft.aggregate idx:movie "*" groupby 2 @category @release_year
+
+ft.aggregate idx:movie "*" groupby 2 @release_year @category
+
+ft.aggregate idx:movie "*" groupby 1 @release_year
+# display the count of movies in each year, without order and with a self-generated column name
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0
+# use aliase "total_num_movies" instead of self-generated names
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies
+# key word contains "heat"
+ft.aggregate idx:movie "heat" groupby 1 @release_year reduce count 0 as total_num_movies
+
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies
+# order by release_year
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 1 @release_year
+# grammar error, SORTBY 2 arguments
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 1 @release_year DESC
+
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 1 @release_year ASC
+#default order is ASC
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 2 @release_year ASC
+
+ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 2 @release_year DESC
