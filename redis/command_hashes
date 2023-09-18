@@ -94,6 +94,7 @@ ft.aggregate idx:movie "*" groupby 2 @release_year @category
 
 ft.aggregate idx:movie "*" groupby 1 @release_year
 # display the count of movies in each year, without order and with a self-generated column name
+# reduce followed by function "count"
 ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0
 # use aliase "total_num_movies" instead of self-generated names
 ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies
@@ -111,3 +112,63 @@ ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_m
 ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 2 @release_year ASC
 
 ft.aggregate idx:movie "*" groupby 1 @release_year reduce count 0 as total_num_movies SORTBY 2 @release_year DESC
+
+#keep on study ft.aggregate
+CODE: Transforming aggregated data using APPLY function
+hgetall user:1
+
+
+
+ft.aggregate idx:user "*" groupby 1 @last_login
+
+
+# transfer unix timestamp into sth human can read, use "apply"
+ft.aggregate idx:user "*" apply year(@last_login) as year groupby 1 @last_login
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year groupby 1 @year
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply dayofmonth(@last_login) as month groupby 1 @year
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply dayofmonth(@last_login) as month groupby 2 @year @month
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply monthofyear(@last_login) as month groupby 2 @year @month
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply monthofyear(@last_login) as month groupby 2 @year @month reduce count 0
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply monthofyear(@last_login) as month groupby 2 @year @month reduce count 0 as count_user_logins
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply "monthofyear(@last_login) + 1" as month groupby 2 @year @month reduce count 0
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply "monthofyear(@last_login) + 1" as month groupby 2 @year @month reduce count 0 as count_user_logins
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply "monthofyear(@last_login) + 1" as month groupby 2 @year @month reduce count 0 as count_user_logins sortby 1 @year
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply "monthofyear(@last_login) + 1" as month groupby 2 @year @month reduce count 0 as count_user_logins sortby 1 @year DESC
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply "monthofyear(@last_login) + 1" as month groupby 2 @year @month reduce count 0 as count_user_logins sortby 2 @year DESC
+
+
+
+ft.aggregate idx:user "*" apply year(@last_login) as year apply "monthofyear(@last_login) + 1" as month groupby 2 @year @month reduce count 0 as count_user_logins sortby 4 @year DESC @month ASC
