@@ -1,0 +1,17 @@
+#CODE: Numerical Conditions
+#same year
+ft.search idx:movie "@release_year:[1995 1995]" return 2 movie_name release_year
+#1995-2000,inclusive
+ft.search idx:movie "@release_year:[1995 2000]" return 2 movie_name release_year
+
+ft.search idx:movie "@release_year:[1999 2000]" return 2 movie_name release_year
+# >= year 2000
+ft.search idx:movie "@release_year:[2000 +inf]" return 2 movie_name release_year
+# >= year 2014
+ft.search idx:movie "@release_year:[2014 +inf]" return 2 movie_name release_year
+# > year 2014
+ft.search idx:movie "@release_year:[(2014 +inf]" return 2 movie_name release_year
+# < year 2014
+ft.search idx:movie "@release_year:[-inf (2014]" return 2 movie_name release_year
+# <= year 2014
+ft.search idx:movie "@release_year:[-inf 2014]" return 2 movie_name release_year

@@ -1,0 +1,42 @@
+#CODE: Using FILTER to filter data
+ft.aggregate idx:user "@gender:{female}"
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females sortby 1 @count_females
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females sortby 1 @count_females desc
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females sortby2 @count_females DESC
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females sortby 2 @count_females DESC
+
+
+# filter expression are evaluated post-query; syntax similar to APPLY expression
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females filter "@country !='china'" sortby 2 @count_females DESC
+
+
+# two conditions are used here, "&&" is used
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females filter "@country !='china' && @count_females > 100" sortby 2 @count_females DESC
+
+
+
+ft.aggregate idx:user "@gender:{female}" groupby 1 @country reduce count 0 as count_females filter "@country !='china' && @count_females > 150" sortby 2 @count_females DESC
