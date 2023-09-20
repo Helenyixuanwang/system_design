@@ -1,0 +1,44 @@
+CODE: Doing atomic operations
+json.set num . 0
+
+json.get num
+
+json.numincrby num . 1
+
+json.numincrby num . 1
+
+json.numincrby num . 1
+
+json.numincrby num . 1
+
+json.numincrby num . 1
+
+json.numincrby num . 1
+
+json.numincrby num . -1
+
+json.numincrby num . -1
+
+json.numincrby num . -1
+
+json.numincrby num . -1
+
+json.nummultby num . 20
+
+json.nummultby num . 20
+
+json.get user:101
+
+json.numincrby user:101 .age 2
+
+json.get user:101
+
+json.numincrby user:101 .age -2
+
+json.get user:101
+
+json.nummultby user:101 .age 2
+
+json.numincrby user:101 .age -30
+
+json.get user:101
